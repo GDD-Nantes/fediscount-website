@@ -7,18 +7,23 @@
     <link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css">
     <!--<script src="./node_modules/d3/dist/d3.min.js"></script>-->
     <!--<script type="module" src="./node_modules/chart.js/dist/chart.umd.js"></script>-->
-
+    <script src="./js/sparql_queries.js"></script>
   </head>
 
   <body>
     <div class="header">
       <span class="logo">FedShop</span>
       <!-- <button id="header_button" class="header_button" onclick="">Examples</button> -->
-
-      <div>
-        <input class="search_bar" type="text" placeholder="Search…">
-        <button type="submit_search"><i class="fa fa-search"></i></button>
-      </div>
+      
+      <span>
+        <button type="category_filter">category</button><!-- TODO dropdown + async + cached -->
+        <input id="search_bar" class="search_bar" type="text" placeholder="Search…">
+        <button type="submit_search" onclick="getProductsByLabel(document.getElementById('search_bar').value)"><i class="fa fa-search"></i></button> <!-- TODO register events in main.js -->
+      </span>
+      
+      <span class="header_button">
+        filter
+      </span>
       
       <span class="cart header_button">
         <i class="fa fa-cart-shopping"></i>
