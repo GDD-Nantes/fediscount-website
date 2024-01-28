@@ -1,46 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-
-    <link href="./css/style.css" rel="stylesheet" />
-    <link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css">
-    <!--<script src="./node_modules/d3/dist/d3.min.js"></script>-->
-    <!--<script type="module" src="./node_modules/chart.js/dist/chart.umd.js"></script>-->
-    <script src="./js/sparql_queries.js"></script>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FedShop</title>
   </head>
-
   <body>
-    <div class="header">
-      <span class="logo">FedShop</span>
-      <!-- <button id="header_button" class="header_button" onclick="">Examples</button> -->
-      
-      <span>
-        <button type="category_filter">category</button><!-- TODO dropdown + async + cached -->
-        <input id="search_bar" class="search_bar" type="text" placeholder="Search…">
-        <button type="submit_search" onclick="getProductsByLabel(document.getElementById('search_bar').value)"><i class="fa fa-search"></i></button> <!-- TODO register events in main.js -->
-      </span>
-      
-      <span class="header_button">
-        filter
-      </span>
-      
-      <span class="cart header_button">
-        <i class="fa fa-cart-shopping"></i>
-      </span>
-      <!-- <span class="github">
-        <a href="https://github.com/Chat-Wane/fedshop">
-          <img src="./res/github-mark.svg"
-               alt="GitHub repository of RAW"
-               height="30px"
-               width="30px" />
-        </a>
-      </span> -->
-    </div>
-    
-
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
   </body>
-
 </html>
-
-
