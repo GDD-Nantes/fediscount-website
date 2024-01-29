@@ -1,17 +1,13 @@
 <script setup>
 import {ref} from 'vue'
 import {log} from "@/components/Log.vue";
+import {q06} from "@/components/Queries.vue";
 
 const toSearch = ref('')
 
 function sendQuery() {
-  const query = `
-    SELECT ?product ?label
-    WHERE {
-      ?product rdfs:label ?label .
-      ?product rdf:type bsbm:Product .
-      FILTER regex(?label, "${toSearch.value}")}`;
-  log.value.addQuery(query);
+  const query = q06(toSearch.value)
+  log.value.addQuery("q06-labelsearch", query);
 }
 
 </script>

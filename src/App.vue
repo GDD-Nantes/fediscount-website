@@ -1,6 +1,8 @@
 <script setup>
+import Queries from "@/components/Queries.vue";
 import HeaderBar from "@/components/HeaderBar.vue";
 import Log from "@/components/Log.vue";
+import ListOfProducts from "@/components/ListOfProducts.vue";
 </script>
 
 <template>
@@ -9,6 +11,7 @@ import Log from "@/components/Log.vue";
   </header>
 
   <main>
+    <ListOfProducts />
     <Log />
   </main>
 </template>

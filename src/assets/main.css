@@ -24,4 +24,8 @@ a,
     min-height: inherit;
     width: 100%;
   }
+
+  table {
+    width: 100%;
+  }
 }
