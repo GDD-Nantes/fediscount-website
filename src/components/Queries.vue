@@ -1,7 +1,7 @@
 <script>
-
 // Query 2: Retrieve basic information about a specific product for display purposes
 // Use Case Motivation: The consumer wants to view basic information about products found by query 1.
+  export const Q02LABEL = () => `q02-details`
   export const q02 = (bsbmProduct, localProduct) => {
     localProduct = localProduct && `<${localProduct}>` || "?localProduct"
     bsbmProduct = bsbmProduct && `<${bsbmProduct}>` || "?bsbmProduct"
@@ -31,10 +31,41 @@
     OPTIONAL { ${localProduct} bsbm:productPropertyNumeric4 ?propertyNumeric4 }
 }`}
 
+// Query 5: Find product that are similar to a given product.
+// Use Case Motivation: The consumer has found a product that fulfills his requirements.
+// He now wants to find products with similar features.
+    export const Q05LABEL = () => `q05-recommendations`
+    export const q05 = (bsbmProduct) => {
+    bsbmProduct = bsbmProduct && `<${bsbmProduct}>` || `?bsbmProduct`
+    return `
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX bsbm: <http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/>
+        PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+        SELECT DISTINCT ?product ?localProductLabel WHERE {
+            ?localProduct rdfs:label ?localProductLabel .
+            ?localProduct bsbm:productFeature ?localProdFeature .
+            ?localProduct bsbm:productPropertyNumeric1 ?simProperty1 .
+            ?localProduct bsbm:productPropertyNumeric2 ?simProperty2 .
+            ?localProduct owl:sameAs ?product .
+            ?localProdFeature owl:sameAs ?prodFeature .
+            ?localProductXYZ bsbm:productFeature ?localProdFeatureXYZ .
+            ?localProductXYZ bsbm:productPropertyNumeric1 ?origProperty1 .
+            ?localProductXYZ bsbm:productPropertyNumeric2 ?origProperty2 .
+            ?localProductXYZ owl:sameAs ${bsbmProduct} .
+            ?localProdFeatureXYZ owl:sameAs ?prodFeature .
+            FILTER(${bsbmProduct} != ?product)
+            FILTER(?simProperty1 < (?origProperty1 + 20) && ?simProperty1 > (?origProperty1 - 20))
+            FILTER(?simProperty2 < (?origProperty2 + 70) && ?simProperty2 > (?origProperty2 - 70))}
+        ORDER BY ?product ?localProductLabel
+        LIMIT 5`}
+
 
 //Query 6: Find products having a label that contains a specific string. (Not used in the query mix anymore)
 // Use Case Motivation: The consumer remembers parts of a product name from former searches.
 // He wants to find the product again by searching for the parts of the name that he remembers.
+  export const Q06LABEL = () => `q06-labelsearch`
   export const q06 = (label) => {
   return `
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -89,4 +120,33 @@
             OPTIONAL { ?review bsbm:rating2 ?rating2 . }
         }}`}
 
+// Query 8: Give me recent reviews in English for a specific product.
+// Use Case Motivation: The consumer wants to read the 20 most recent
+// English language reviews about a specific product.
+  export const Q08LABEL = () => 'q08-reviews'
+  export const q08 = (bsbmProduct) => {
+    bsbmProduct = bsbmProduct && `<${bsbmProduct}>` || `?bsbmProduct`
+    return `
+        PREFIX bsbm: <http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/>
+        PREFIX dc: <http://purl.org/dc/elements/1.1/>
+        PREFIX rev: <http://purl.org/stuff/rev#>
+        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+        PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+        SELECT ?title ?text ?reviewDate ?reviewer ?reviewerName ?rating1 ?rating2 ?rating3 ?rating4  WHERE {
+        ?review bsbm:reviewFor ?localProductXYZ .
+        ?localProductXYZ owl:sameAs ${bsbmProduct} .
+        ?review dc:title ?title .
+        ?review rev:text ?text .
+        FILTER(langMatches( lang(?text), "en" ))
+        ?review bsbm:reviewDate ?reviewDate .
+        ?review rev:reviewer ?reviewer .
+        ?reviewer foaf:name ?reviewerName .
+        OPTIONAL { ?review bsbm:rating1 ?rating1 . }
+        OPTIONAL { ?review bsbm:rating2 ?rating2 . }
+        OPTIONAL { ?review bsbm:rating3 ?rating3 . }
+        OPTIONAL { ?review bsbm:rating4 ?rating4 . }
+    }
+    ORDER BY ?title ?text ?reviewDate ?reviewer ?reviewerName ?rating1 ?rating2 ?rating3 ?rating4
+    LIMIT 20`}
 </script>

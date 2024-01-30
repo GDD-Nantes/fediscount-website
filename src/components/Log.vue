@@ -1,6 +1,9 @@
 <script setup>
 import {ref} from 'vue'
-import {listOfProductEntry} from "@/components/ListOfProducts.vue";
+import {listOfProducts} from "@/components/ListOfProducts.vue";
+import {listOfRecommendations} from  "@/components/ListOfRecommendations.vue";
+import {listOfReviews} from "@/components/ListOfReviews.vue";
+import {Q05LABEL, Q08LABEL} from "@/components/Queries.vue";
 </script>
 
 <script>
@@ -17,19 +20,36 @@ class LogEntry {
     this.service = null; // service query sent by the federation engine
     this.results = null; // results bindings sent by the federation engine
     this.duration = null; // duration between the start and the finish of the query
+    this.subQueries = [];
   }
 }
 
 export const log = ref({
   list: [],
 
-  addQuery(type, query) {
+  async addQuery(type, query) {
     const newLogEntry = new LogEntry(type,
         "http://localhost:3330/summary/sparql",
         "todo",
         query)
     this.list.push(newLogEntry)
-    this.performQuery(newLogEntry)
+    await this.performQuery(newLogEntry)
+    listOfProducts.value.updateEntry(newLogEntry);
+  },
+
+  async supplementQuery(entry, type, query) {
+    const newLogEntry = new LogEntry(type,
+        "http://localhost:3330/summary/sparql",
+        "todo",
+        query)
+    entry.subQueries.push(newLogEntry)
+    await this.performQuery(newLogEntry)
+    if (type === Q05LABEL()) {
+      listOfRecommendations.value.updateEntry(newLogEntry);
+    } else if (type === Q08LABEL()) {
+      listOfReviews.value.updateEntry(newLogEntry);
+    }
+
   },
 
   async performQuery(entry) {
@@ -42,14 +62,13 @@ export const log = ref({
         "Content-Type": "application/x-www-form-urlencoded",
         "Accept": "application/sparql-results+json"
       },
-      body: "query="+ encodeURI(querystring),
+      body: "query="+ encodeURIComponent(querystring),
     };
     const start = new Date()
     const response = await fetch(entry.engine, requestOptions)
     const data = await response.json()
     entry.results = data;
     entry.duration = (new Date().getTime()) - start.getTime()
-    listOfProductEntry.value.updateEntry(entry);
   }
 })
 
