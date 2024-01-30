@@ -3,7 +3,8 @@ import {ref} from 'vue'
 import {listOfProducts} from "@/components/ListOfProducts.vue";
 import {listOfRecommendations} from  "@/components/ListOfRecommendations.vue";
 import {listOfReviews} from "@/components/ListOfReviews.vue";
-import {Q05LABEL, Q08LABEL} from "@/components/Queries.vue";
+import {listOfOffers} from "@/components/ListOfOffers.vue";
+import {Q05LABEL, Q08LABEL, Q10LABEL} from "@/components/Queries.vue";
 </script>
 
 <script>
@@ -48,6 +49,8 @@ export const log = ref({
       listOfRecommendations.value.updateEntry(newLogEntry);
     } else if (type === Q08LABEL()) {
       listOfReviews.value.updateEntry(newLogEntry);
+    } else if (type === Q10LABEL()) {
+      listOfOffers.value.updateEntry(newLogEntry);
     }
 
   },
@@ -71,7 +74,6 @@ export const log = ref({
     entry.duration = (new Date().getTime()) - start.getTime()
   }
 })
-
 </script>
 
 

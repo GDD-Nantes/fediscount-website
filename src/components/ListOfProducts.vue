@@ -1,9 +1,11 @@
 <script setup>
-import {ref, watch} from 'vue';
-import {log} from "@/components/Log.vue";
-import {q02, Q02LABEL, q05, Q05LABEL, Q06LABEL, q08, Q08LABEL} from "@/components/Queries.vue";
-import ListOfComments from "@/components/ListOfReviews.vue";
-import ListOfRecommendations from "@/components/ListOfRecommendations.vue";
+import {ref, watch} from 'vue'
+import {log} from "@/components/Log.vue"
+import {q02, Q02LABEL, q05, Q05LABEL, Q06LABEL, q08, Q08LABEL, q10, Q10LABEL} from "@/components/Queries.vue"
+import ListOfComments from "@/components/ListOfReviews.vue"
+import ListOfRecommendations from "@/components/ListOfRecommendations.vue"
+import ListOfOffers from "@/components/ListOfOffers.vue"
+import Cart from "@/components/Cart.vue"
 </script>
 
 <script>
@@ -14,7 +16,7 @@ let globalBsbmProduct = ""
 function sendQuery(product, label, bsbmProduct) {
   globalBsbmProduct = bsbmProduct;
   const query = q02(bsbmProduct, product)
-  log.value.addQuery(Q02LABEL(), query);
+  log.value.addQuery(Q02LABEL(), query)
 }
 
 export const listOfProducts = ref({
@@ -29,7 +31,6 @@ export const listOfProducts = ref({
         // get further info about similar products
         const query = q05(globalBsbmProduct)
         log.value.supplementQuery(this.entry, Q05LABEL(), query)
-        console.log(this.entry)
       }
 
       if (this.entry.type === Q02LABEL() &&
@@ -37,7 +38,13 @@ export const listOfProducts = ref({
         // get further info about similar products
         const query = q08(globalBsbmProduct)
         log.value.supplementQuery(this.entry, Q08LABEL(), query)
-        console.log(this.entry)
+      }
+
+      if (this.entry.type === Q02LABEL() &&
+          this.entry.subQueries.filter(e => e.type === Q10LABEL()).length === 0) {
+        // get further info about similar products
+        const query = q10(globalBsbmProduct)
+        log.value.supplementQuery(this.entry, Q10LABEL(), query)
       }
 
     }
@@ -112,9 +119,13 @@ watch(chosenFeature, e => {
       <li v-if="chosenEntry['propertyNumeric4']">Max speed: {{chosenEntry["propertyNumeric4"].value}} km/h</li>
     </ul>
     <br/>
+    <ListOfOffers />
+    <br/>
     <ListOfRecommendations />
     <br/>
     <ListOfComments />
+    <br />
+    <Cart />
   </span>
 </template>
 

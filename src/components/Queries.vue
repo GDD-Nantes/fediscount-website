@@ -149,4 +149,32 @@
     }
     ORDER BY ?title ?text ?reviewDate ?reviewer ?reviewerName ?rating1 ?rating2 ?rating3 ?rating4
     LIMIT 20`}
+
+// Query 10: Get offers for a given product which fulfill specific requirements.
+// Use Case Motivation: The consumer wants to buy from a vendor in the United States
+// that is able to deliver within 3 days and is looking for the cheapest offer that fulfills
+// these requirements.
+  export const Q10LABEL = () => `q10-offers`
+  export const q10 = (bsbmProduct) => {
+    bsbmProduct = bsbmProduct && `<${bsbmProduct}>` || `?bsbmProduct`
+    return `
+    PREFIX bsbm: <http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/>
+    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+    PREFIX dc: <http://purl.org/dc/elements/1.1/>
+    PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+    SELECT DISTINCT ?offer ?price WHERE {
+        ?offer bsbm:product ?localProductXYZ .
+        ?localProductXYZ owl:sameAs ${bsbmProduct} .
+        ?offer bsbm:vendor ?vendor .
+        ?vendor bsbm:country <http://downlode.org/rdf/iso-3166/countries#US> .
+        ?offer bsbm:deliveryDays ?deliveryDays .
+        FILTER(?deliveryDays <= 3)
+        ?offer bsbm:price ?price .
+        ?offer bsbm:validTo ?date .
+        FILTER (?date > "2008-04-10T00:00:00"^^xsd:dateTime )
+    }
+    ORDER BY ?offer ?price
+    LIMIT 10`}
+
 </script>

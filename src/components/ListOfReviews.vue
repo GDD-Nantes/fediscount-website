@@ -26,7 +26,7 @@ export const listOfReviews = ref({
       <span v-if="reviews.length === 0">None.</span>
       <ul v-else>
         <li v-for="review in reviews">
-          <span>{{review["title"].value}} by {{review["reviewerName"].value}}</span>
+          {{review["title"].value}} by {{review["reviewerName"].value}}
           <ul>
             <li v-if="review['rating1']">Quality: {{review['rating1'].value}}</li>
             <li v-if="review['rating2']">Durability: {{review['rating2'].value}}</li>
