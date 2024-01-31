@@ -6,11 +6,11 @@ import App from './App.vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-import { faCartShopping, faCartPlus, faMoneyBill } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass, faCartShopping, faCartPlus, faMoneyBill, faStar } from '@fortawesome/free-solid-svg-icons'
+import { faStar as faStarEmpty} from '@fortawesome/free-regular-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faCartShopping, faGithub, faMagnifyingGlass, faCartPlus, faMoneyBill)
+library.add(faCartShopping, faGithub, faMagnifyingGlass, faCartPlus, faMoneyBill, faStar, faStarEmpty)
 
 createApp(App)
     .component('font-awesome-icon', FontAwesomeIcon)

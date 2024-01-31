@@ -1,4 +1,43 @@
 <script>
+
+  function isPrefixed(value) {
+    return !value.startsWith('<') && !value.endsWith('>') && value.split(':').length === 2
+  }
+
+// Query 1: Find products for a given set of generic features.
+// Use Case Motivation: A consumer is looking for a product and has a general
+// idea about what he wants.
+  export const Q01LABEL = () => `q01-filter`
+  export const q01 = (productType, productFeature1, productFeature2, numericProperty) => {
+    productType = ((productType==='' || !productType) && `?productType`) || productType
+    productFeature1 = ((productFeature1==='' || !productFeature1) && `?productFeature1`) || productFeature1
+    productFeature2 = ((productFeature2==='' || !productFeature2) && `?productFeature2`) || productFeature2
+    numericProperty = ((numericProperty==='' || !numericProperty) && `0`) || numericProperty;
+
+    return `
+    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+    PREFIX bsbm-inst: <http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/>
+    PREFIX bsbm: <http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/>
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+    PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+    SELECT DISTINCT ?product ?label ?bsbmProduct WHERE {
+        ?product rdfs:label ?label .
+        ?product rdf:type ?localProductType .
+        ?localProductType owl:sameAs ${productType} .
+        ?product bsbm:productFeature ?localProductFeature1 .
+        ?localProductFeature1 owl:sameAs ${productFeature1} .
+        ?product bsbm:productFeature ?localProductFeature2 .
+        ?localProductFeature2 owl:sameAs ${productFeature2} .
+        ?product bsbm:productPropertyNumeric1 ?value1 .
+        ?product owl:sameAs ?bsbmProduct .
+        FILTER (?value1 > ${numericProperty})
+    }
+    ORDER BY ?product ?label
+    LIMIT 10`}
+
+
 // Query 2: Retrieve basic information about a specific product for display purposes
 // Use Case Motivation: The consumer wants to view basic information about products found by query 1.
   export const Q02LABEL = () => `q02-details`

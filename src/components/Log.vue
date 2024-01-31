@@ -4,7 +4,8 @@ import {listOfProducts} from "@/components/ListOfProducts.vue";
 import {listOfRecommendations} from  "@/components/ListOfRecommendations.vue";
 import {listOfReviews} from "@/components/ListOfReviews.vue";
 import {listOfOffers} from "@/components/ListOfOffers.vue";
-import {Q05LABEL, Q08LABEL, Q10LABEL} from "@/components/Queries.vue";
+import {Q02LABEL, Q05LABEL, Q08LABEL, Q10LABEL} from "@/components/Queries.vue";
+import {detailedProduct} from "@/components/DetailedProduct.vue";
 </script>
 
 <script>
@@ -35,7 +36,11 @@ export const log = ref({
         query)
     this.list.push(newLogEntry)
     await this.performQuery(newLogEntry)
-    listOfProducts.value.updateEntry(newLogEntry);
+    if (type === Q02LABEL()) {
+      detailedProduct.value.updateEntry(newLogEntry);
+    } else {
+      listOfProducts.value.updateEntry(newLogEntry);
+    }
   },
 
   async supplementQuery(entry, type, query) {
@@ -43,14 +48,22 @@ export const log = ref({
         "http://localhost:3330/summary/sparql",
         "todo",
         query)
+
+    if (type === Q05LABEL()){
+      listOfRecommendations.value.reset()
+    } else if (type === Q08LABEL()){
+      listOfReviews.value.reset()
+    } else if (type === Q10LABEL()) {
+      listOfOffers.value.reset()
+    }
     entry.subQueries.push(newLogEntry)
     await this.performQuery(newLogEntry)
     if (type === Q05LABEL()) {
-      listOfRecommendations.value.updateEntry(newLogEntry);
+      listOfRecommendations.value.updateEntry(newLogEntry)
     } else if (type === Q08LABEL()) {
-      listOfReviews.value.updateEntry(newLogEntry);
+      listOfReviews.value.updateEntry(newLogEntry)
     } else if (type === Q10LABEL()) {
-      listOfOffers.value.updateEntry(newLogEntry);
+      listOfOffers.value.updateEntry(newLogEntry)
     }
 
   },
