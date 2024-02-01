@@ -37,7 +37,7 @@ export const log = ref({
         "http://localhost:3330/summary/sparql",
         "todo",
         query)
-    this.list.push(newLogEntry)
+    this.list.unshift(newLogEntry)
     await this.performQuery(newLogEntry)
     if (type === Q02LABEL()) {
       detailedProduct.value.updateEntry(newLogEntry);
@@ -59,7 +59,7 @@ export const log = ref({
     } else if (type === Q10LABEL()) {
       listOfOffers.value.reset()
     }
-    this.list.push(newLogEntry)
+    this.list.unshift(newLogEntry)
     entry.subQueries.push(newLogEntry)
     await this.performQuery(newLogEntry)
     if (type === Q05LABEL()) {
@@ -96,13 +96,30 @@ export const log = ref({
 
 <template>
   <dialog v-if="displayLog" open>
-    <ul>
-      <li v-for="entry in log.list" :key="entry.id">
-        {{entry.id}}: {{entry.query}}
-      </li>
-    </ul>
-  </dialog>
+    <table>
+      <caption><u><i>Log of queries</i></u></caption>
 
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">type</th>
+        <th scope="col">results</th>
+        <th scope="col">duration (ms)</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr v-for="entry in log.list" :key="entry.id">
+        <td>Q{{entry.id}}</td>
+        <td>{{entry.type}}</td>
+        <td v-if="entry.results && entry.results.results.bindings">{{entry.results.results.bindings.length}}</td>
+        <td v-else>X</td>
+        <td v-if="entry.duration">{{entry.duration}}</td>
+        <td v-else>X</td>
+      </tr>
+      </tbody>
+    </table>
+  </dialog>
 </template>
 
 
@@ -116,4 +133,21 @@ dialog {
   left: calc(50% - 1000px/2);
   top: 100px;
 }
+
+td {
+  text-align: center;
+}
+
+caption {
+  font-size: 1.5em;
+}
+
+thead {
+  background-color: var(--snow-storm-2);
+}
+
+tbody tr:hover {
+  background-color: var(--snow-storm-3);
+}
+
 </style>

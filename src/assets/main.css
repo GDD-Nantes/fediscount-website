@@ -9,6 +9,9 @@ h3 {
   font-style: italic;
 }
 
+body {
+  background-color: var(--color-background);
+}
 
 a,
 .green {
