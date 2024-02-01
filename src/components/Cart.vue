@@ -9,13 +9,9 @@ export const displayCart = ref(false)
 export const cart = ref({
   list: [],
 
-  addToCart(offer, amount) {
-    this.list.push({offer: offer, amount: amount})
-  },
-
-  total() {
-    return this.list.map(e=>e.amount).reduce(function(acc, val) { return parseFloat(acc) + parseFloat(val); }, 0)
-  }
+  getLength() {return this.list.length;},
+  addToCart(offer, amount) {this.list.push({offer: offer, amount: amount})},
+  total() {return this.list.map(e=>e.amount).reduce(function(acc, val) { return parseFloat(acc) + parseFloat(val); }, 0)}
 })
 </script>
 

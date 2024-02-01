@@ -109,7 +109,7 @@ export const log = ref({
       </thead>
 
       <tbody>
-      <tr v-for="entry in log.list" :key="entry.id">
+      <tr v-for="entry in log.list" :key="entry.id" :title="entry.query">
         <td>Q{{entry.id}}</td>
         <td>{{entry.type}}</td>
         <td v-if="entry.results && entry.results.results.bindings">{{entry.results.results.bindings.length}}</td>

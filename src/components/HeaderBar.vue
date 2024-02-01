@@ -2,7 +2,7 @@
 import {ref} from 'vue'
 import {log} from "@/components/Log.vue"
 import {q06, Q06LABEL} from "@/components/Queries.vue"
-import {displayCart} from "@/components/Cart.vue"
+import {displayCart, cart} from "@/components/Cart.vue"
 import {displayLog} from "@/components/Log.vue"
 
 const toSearch = ref('')
@@ -106,4 +106,5 @@ table {
   font-size: 2em;
   margin-right: 0.2em;
 }
+
 </style>

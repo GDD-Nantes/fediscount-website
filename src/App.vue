@@ -6,6 +6,7 @@ import Filter from "@/components/Filter.vue";
 import DetailedProduct from "@/components/DetailedProduct.vue";
 import Cart from "@/components/Cart.vue"
 import GreyFilter from "@/components/GreyFilter.vue";
+import FederatedQuery from "@/components/FederatedQuery.vue"
 </script>
 
 <template>
@@ -24,6 +25,7 @@ import GreyFilter from "@/components/GreyFilter.vue";
         <DetailedProduct />
         <Log />
         <Cart />
+        <FederatedQuery />
       </td>
     </table>
   </main>

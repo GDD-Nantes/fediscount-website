@@ -2,17 +2,14 @@
 import {displayCart} from "@/components/Cart.vue";
 import {displayLog} from "@/components/Log.vue";
 
-function toggleModals () {
+function closeModals () {
   displayCart.value = false;
   displayLog.value = false;
 }
-
 </script>
 
-
-
 <template>
-<div v-if="displayCart || displayLog" @click="toggleModals"></div>
+<div v-if="displayCart || displayLog" @click="closeModals"></div>
 </template>
 
 
