@@ -9,6 +9,9 @@ import {detailedProduct} from "@/components/DetailedProduct.vue";
 </script>
 
 <script>
+
+export const displayLog = ref(false)
+
 class LogEntry {
   static nbId = 0;
 
@@ -91,10 +94,25 @@ export const log = ref({
 
 
 <template>
-  <ul>
-    <li v-for="entry in log.list" :key="entry.id">
-      {{entry.id}}: {{entry.query}}
-    </li>
-  </ul>
+  <dialog v-if="displayLog" open>
+    <ul>
+      <li v-for="entry in log.list" :key="entry.id">
+        {{entry.id}}: {{entry.query}}
+      </li>
+    </ul>
+  </dialog>
 
 </template>
+
+
+<style scoped>
+dialog {
+  position: absolute;
+  width: 1000px;
+  height: fit-content;
+  min-height: 400px;
+
+  left: calc(50% - 1000px/2);
+  top: 100px;
+}
+</style>

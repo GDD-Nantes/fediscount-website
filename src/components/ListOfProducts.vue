@@ -7,20 +7,32 @@ import ListOfRecommendations from "@/components/ListOfRecommendations.vue"
 import ListOfOffers from "@/components/ListOfOffers.vue"
 import Cart from "@/components/Cart.vue"
 import {bsbmProduct, detailedProduct} from "@/components/DetailedProduct.vue";
+
+const MAXROW = 10
+const MAXCOL = 4
 </script>
 
 <script>
 
 export const listOfProducts = ref({
   entry: {id: 0},
+  nbPages: 1,
+
+  inc() {this.nbPages +=1},
+  dec() {this.nbPages -=1},
 
   updateEntry(newEntry) {
-    if (newEntry.id > this.entry.id) {
+    if (newEntry.id >= this.entry.id) {
+      this.nbPages = 1
       this.entry = newEntry
     }
   },
 
-  getId() {return this.entry.id}
+  getLength() {
+    return this.entry.results.results.bindings.length;
+  },
+
+  getId() {return this.entry.id},
 })
 
 function sendQuery(index) {
@@ -34,14 +46,21 @@ function sendQuery(index) {
 
 <template>
   <table v-if="listOfProducts.entry.results && listOfProducts.entry.id > detailedProduct.getId()">
-    <!-- TODO load more if bottom -->
     <!-- remember that v-for start at 1… Why? No one knows…-->
-    <tr v-for="col in Math.min(5, Math.ceil(listOfProducts.entry.results.results.bindings.length/4))">
-      <td v-for="row in 4" :set="product = listOfProducts.entry.results.results.bindings[(col-1)*4+(row-1)]">
-        <button v-if="product" @click="sendQuery((col-1)*4+(row-1))">
+    <tr v-for="row in Math.min(MAXROW, Math.ceil(listOfProducts.getLength()/4))">
+      <td v-for="col in MAXCOL" :set="product = listOfProducts.entry.results.results.bindings[((row-1)*4+(col-1))+((listOfProducts.nbPages-1)*MAXROW*MAXCOL)]">
+        <button v-if="product" @click="sendQuery((row-1)*4+(col-1)+((listOfProducts.nbPages-1)*MAXROW*MAXCOL))">
+          {{(row-1)*4+(col-1)+((listOfProducts.nbPages-1)*MAXROW*MAXCOL)+1}} <br/>
           {{product['label'].value}} <br/>
           {{product['product'].value}}
         </button>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4" class="showMore">
+        <button @click="listOfProducts.dec" v-if="listOfProducts.nbPages>1"><</button>
+        page {{listOfProducts.nbPages}}
+        <button @click="listOfProducts.inc" v-if="listOfProducts.nbPages*MAXROW*MAXCOL<listOfProducts.getLength()">></button>
       </td>
     </tr>
     <caption v-if="listOfProducts.entry.results.results.bindings.length === 0" >
@@ -60,6 +79,15 @@ function sendQuery(index) {
 button {
   width: 100%;
   height: 100%;
+  margin:auto;
+}
+
+.showMore {
+  text-align: center;
+}
+
+.showMore button {
+  width: fit-content;
 }
 
 </style>

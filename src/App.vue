@@ -5,9 +5,11 @@ import ListOfProducts from "@/components/ListOfProducts.vue";
 import Filter from "@/components/Filter.vue";
 import DetailedProduct from "@/components/DetailedProduct.vue";
 import Cart from "@/components/Cart.vue"
+import GreyFilter from "@/components/GreyFilter.vue";
 </script>
 
 <template>
+  <GreyFilter />
   <header>
     <HeaderBar />
   </header>
