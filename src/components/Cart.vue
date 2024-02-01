@@ -30,7 +30,7 @@ export const cart = ref({
         <td>{{item['offer']}}</td> <td>{{item['amount']}}$</td>
       </tr>
       <tr>
-        <td></td><td>{{cart.total()}}$</td>
+        <td colspan="2" class="total">{{cart.total()}}$</td>
       </tr>
       <tr v-if="cart.list.length > 0">
         <td></td><td><button><font-awesome-icon :icon="['fas', 'money-bill']" /> Checkout</button></td></tr>
@@ -42,6 +42,11 @@ export const cart = ref({
 <style scoped>
 table td+td {
   text-align: right;
+}
+
+.total {
+  text-align: right;
+  border-top: solid 1px;
 }
 
 dialog {

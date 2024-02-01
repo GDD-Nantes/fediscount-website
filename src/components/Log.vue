@@ -59,6 +59,7 @@ export const log = ref({
     } else if (type === Q10LABEL()) {
       listOfOffers.value.reset()
     }
+    this.list.push(newLogEntry)
     entry.subQueries.push(newLogEntry)
     await this.performQuery(newLogEntry)
     if (type === Q05LABEL()) {

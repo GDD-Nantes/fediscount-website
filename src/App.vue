@@ -32,8 +32,9 @@ import GreyFilter from "@/components/GreyFilter.vue";
 <style scoped>
 
 header {
+  color: white;
   border: 1px solid var(--polar-night-3);
-  background: var(--snow-storm-3);
+  background: var(--polar-night-3);
   height: var(--header-height);
 }
 

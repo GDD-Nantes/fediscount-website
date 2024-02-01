@@ -1,7 +1,7 @@
 @import './base.css';
 
 :root {
-  --header-height: 30px;
+  --header-height: 64px;
 }
 
 h3 {
