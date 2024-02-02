@@ -1,11 +1,12 @@
 <script setup>
 import {ref} from 'vue'
-import {listOfProducts} from "@/components/ListOfProducts.vue";
-import {listOfRecommendations} from  "@/components/ListOfRecommendations.vue";
-import {listOfReviews} from "@/components/ListOfReviews.vue";
-import {listOfOffers} from "@/components/ListOfOffers.vue";
-import {Q02LABEL, Q05LABEL, Q08LABEL, Q10LABEL} from "@/components/Queries.vue";
-import {detailedProduct} from "@/components/DetailedProduct.vue";
+import {listOfProducts} from "@/components/ListOfProducts.vue"
+import {listOfRecommendations} from  "@/components/ListOfRecommendations.vue"
+import {listOfReviews} from "@/components/ListOfReviews.vue"
+import {listOfOffers} from "@/components/ListOfOffers.vue"
+import {Q02LABEL, Q05LABEL, Q08LABEL, Q10LABEL} from "@/components/Queries.vue"
+import {detailedProduct} from "@/components/DetailedProduct.vue"
+import {displayPlan, serviceQuery} from "@/components/FederatedQuery2.vue";
 </script>
 
 <script>
@@ -29,6 +30,13 @@ class LogEntry {
   }
 }
 
+// comes from <https://developer.mozilla.org/en-US/docs/Glossary/Base64>
+const decoder = new TextDecoder();
+function base64ToBytes(base64) {
+  const binString = atob(base64);
+  return Uint8Array.from(binString, (m) => m.codePointAt(0));
+}
+
 export const log = ref({
   list: [],
 
@@ -39,6 +47,10 @@ export const log = ref({
         query)
     this.list.unshift(newLogEntry)
     await this.performQuery(newLogEntry)
+
+    if (newLogEntry.results && newLogEntry.results.FedUP_Exported) {
+      newLogEntry.service = decoder.decode(base64ToBytes(newLogEntry.results.FedUP_Exported));
+    }
     if (type === Q02LABEL()) {
       detailedProduct.value.updateEntry(newLogEntry);
     } else {
@@ -62,6 +74,9 @@ export const log = ref({
     this.list.unshift(newLogEntry)
     entry.subQueries.push(newLogEntry)
     await this.performQuery(newLogEntry)
+    if (newLogEntry.results && newLogEntry.results.FedUP_Exported) {
+      newLogEntry.service = decoder.decode(base64ToBytes(newLogEntry.results.FedUP_Exported));
+    }
     if (type === Q05LABEL()) {
       listOfRecommendations.value.updateEntry(newLogEntry)
     } else if (type === Q08LABEL()) {
@@ -109,7 +124,7 @@ export const log = ref({
       </thead>
 
       <tbody>
-      <tr v-for="entry in log.list" :key="entry.id" :title="entry.query">
+      <tr v-for="entry in log.list" :key="entry.id" :title="entry.query" @click="entry.service && serviceQuery.updateQuery(entry.service); displayPlan=entry.service && true">
         <td>Q{{entry.id}}</td>
         <td>{{entry.type}}</td>
         <td v-if="entry.results && entry.results.results.bindings">{{entry.results.results.bindings.length}}</td>

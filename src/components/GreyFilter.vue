@@ -1,15 +1,17 @@
 <script setup>
 import {displayCart} from "@/components/Cart.vue";
 import {displayLog} from "@/components/Log.vue";
+import {displayPlan} from "@/components/FederatedQuery2.vue"
 
 function closeModals () {
   displayCart.value = false;
   displayLog.value = false;
+  displayPlan.value = false;
 }
 </script>
 
 <template>
-<div v-if="displayCart || displayLog" @click="closeModals"></div>
+<div v-if="displayCart || displayLog || displayPlan" @click="closeModals"></div>
 </template>
 
 
