@@ -4,6 +4,7 @@ import {log} from "@/components/Log.vue"
 import {q06, Q06LABEL} from "@/components/Queries.vue"
 import {displayCart, cart} from "@/components/Cart.vue"
 import {displayLog} from "@/components/Log.vue"
+import {displayFederationChoice} from "@/components/FederationChoice.vue"
 
 const toSearch = ref('')
 // suggestions come from FedShop proposed queries
@@ -31,9 +32,15 @@ function openGithub() {
         <datalist id="toSearchSuggestions">
           <option v-for="suggestion in toSearchSuggestions">{{suggestion}}</option>
         </datalist>
-        <button @click="sendQuery">
+
+        <button @click="displayFederationChoice=!displayFederationChoice" title="Customize the federation">
+          <font-awesome-icon :icon="['fas', 'users-gear']" />
+        </button>
+
+        <button @click="sendQuery" title="Search!">
           <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
         </button>
+
       </td>
       <td class="additionalButtons">
         <button @click="displayCart=!displayCart" title="Cart">
@@ -62,7 +69,7 @@ function openGithub() {
 }
 
 table {
-  table-layout: fixed;
+  table-layout: auto;
 }
 
 .logo {
@@ -85,7 +92,7 @@ table {
   padding-left: 0.5em;
 }
 
-.searchBar button {
+.searchBar button+button {
   border-bottom-right-radius: 25px;
   border-top-right-radius: 25px;
   border-width: 0;
@@ -96,6 +103,14 @@ table {
 
 .searchBar button:hover {
   background-color: #8fbcbb;
+}
+
+.searchBar button {
+  border-radius: 0px;
+  border-width: 0;
+  background-color: white;
+  padding-right: 0.5em;
+  padding-left: 0.5em;
 }
 
 .additionalButtons {

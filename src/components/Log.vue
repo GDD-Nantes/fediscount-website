@@ -7,6 +7,7 @@ import {listOfOffers} from "@/components/ListOfOffers.vue"
 import {Q02LABEL, Q05LABEL, Q08LABEL, Q10LABEL} from "@/components/Queries.vue"
 import {detailedProduct} from "@/components/DetailedProduct.vue"
 import {displayPlan, serviceQuery} from "@/components/FederatedQuery2.vue";
+import {federationChoice} from "@/components/FederationChoice.vue";
 </script>
 
 <script>
@@ -16,12 +17,11 @@ export const displayLog = ref(false)
 class LogEntry {
   static nbId = 0;
 
-  constructor(type, engine, federation, query) {
+  constructor(type, engine, query) {
     LogEntry.nbId++;
     this.id = LogEntry.nbId;
     this.type = type;
     this.engine = engine; // remote address of the federation engine
-    this.federation = federation;
     this.query = query;
     this.service = null; // service query sent by the federation engine
     this.results = null; // results bindings sent by the federation engine
@@ -37,14 +37,13 @@ function base64ToBytes(base64) {
   return Uint8Array.from(binString, (m) => m.codePointAt(0));
 }
 
+// TODO cache query results
+// TODO stop old queries
 export const log = ref({
   list: [],
 
   async addQuery(type, query) {
-    const newLogEntry = new LogEntry(type,
-        "http://localhost:3330/summary/sparql",
-        "todo",
-        query)
+    const newLogEntry = new LogEntry(type, federationChoice.value, query)
     this.list.unshift(newLogEntry)
     await this.performQuery(newLogEntry)
 
@@ -59,10 +58,7 @@ export const log = ref({
   },
 
   async supplementQuery(entry, type, query) {
-    const newLogEntry = new LogEntry(type,
-        "http://localhost:3330/summary/sparql",
-        "todo",
-        query)
+    const newLogEntry = new LogEntry(type, federationChoice.value, query)
 
     if (type === Q05LABEL()){
       listOfRecommendations.value.reset()
@@ -118,6 +114,7 @@ export const log = ref({
       <tr>
         <th scope="col">#</th>
         <th scope="col">type</th>
+        <th scope="col">at</th>
         <th scope="col">results</th>
         <th scope="col">duration (ms)</th>
       </tr>
@@ -127,6 +124,7 @@ export const log = ref({
       <tr v-for="entry in log.list" :key="entry.id" :title="entry.query" @click="entry.service && serviceQuery.updateQuery(entry.service); displayPlan=entry.service && true">
         <td>Q{{entry.id}}</td>
         <td>{{entry.type}}</td>
+        <td>{{entry.engine}}</td>
         <td v-if="entry.results && entry.results.results.bindings">{{entry.results.results.bindings.length}}</td>
         <td v-else>X</td>
         <td v-if="entry.duration">{{entry.duration}}</td>

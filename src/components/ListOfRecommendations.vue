@@ -12,7 +12,6 @@ export const listOfRecommendations = ref({
 
   updateEntry(newEntry) {
     if (newEntry.id > this.entry.id) {
-      console.log(newEntry)
       this.entry = newEntry
     }
   },

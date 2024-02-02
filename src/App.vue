@@ -7,6 +7,7 @@ import DetailedProduct from "@/components/DetailedProduct.vue";
 import Cart from "@/components/Cart.vue"
 import GreyFilter from "@/components/GreyFilter.vue";
 import FederatedQuery from "@/components/FederatedQuery.vue"
+import FederationChoice from "@/components/FederationChoice.vue";
 </script>
 
 <template>
@@ -23,9 +24,12 @@ import FederatedQuery from "@/components/FederatedQuery.vue"
       <td class="products">
         <ListOfProducts />
         <DetailedProduct />
+
+        <!-- dialogs -->
         <Log />
         <Cart />
         <FederatedQuery />
+        <FederationChoice />
       </td>
     </table>
   </main>
