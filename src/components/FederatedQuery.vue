@@ -24,5 +24,6 @@ dialog {
 
   left: calc(50% - 1000px/2);
   top: 100px;
+  padding:0;
 }
 </style>

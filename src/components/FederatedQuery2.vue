@@ -162,17 +162,6 @@ export const serviceQuery = ref({
 
 
 <style scoped>
-
-dialog {
-  position: absolute;
-  width: 1000px;
-  height: 600px;
-
-  left: calc(50% - 1000px/2);
-  top: 100px;
-  padding:0;
-}
-
 svg {
   width:100%;
   height:100%;
