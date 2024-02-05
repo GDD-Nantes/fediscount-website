@@ -23,7 +23,7 @@ git clone https://github.com/GDD-Nantes/fediscount-website.git
 cd fediscount-website
 npm install -D
 
-# Run a vite server listening on 3330 by default
+# Run a vite server listening on 5173 by default
 npm run dev
 ```
 
@@ -45,7 +45,10 @@ Once created, please run the HTTP server by executing the command as follows:
 ```
 git clone https://github.com/GDD-Nantes/fedup
 cd fedup
-mvn exec:java -Dexec.args="--summaries=./temp/fedshop100-h0,./temp/fedshop20-h0,./temp/fedshop200-h0 --engine=FedX --export"
+
+# Run the federation engine server on port 3330 by default
+# Replace each summary path by yours
+mvn exec:java -Dexec.args="--summaries=./fedshop100-h0,./fedshop20-h0,./fedshop200-h0 --engine=FedX --export"
 ```
 
 
