@@ -1,11 +1,14 @@
 # fediscount-website
 
 Fediscount is a proof of concept for Web applications relying on
-configurable federations of SPARQL endpoints. It comprises 3
-components: (_i_) a Web view accessible through modern Web browsers,
-(_ii_) a federation engine able to process queries for large scale
-federations in reasonable time, and (_iii_) a federation of
-SPARQL endpoints.
+configurable federations of SPARQL endpoints. It is an e-commerce
+Website where end users can browse a set of products and offers made
+available by a set of independent vendors.
+
+It comprises 3 components: (__i__) a Web view accessible through modern
+Web browsers, (__ii__) a federation engine able to process queries for
+large scale federations in reasonable time, and (__iii__) a federation
+of SPARQL endpoints.
 
 ## A Web View
 
@@ -39,9 +42,8 @@ To deploy FedUP for Fediscount, one must first create 3 tiny quotient
 summaries of the targeted FedShop federations (20 endpoints, 100
 endpoints, and 200 endpoints) using Apache Jena.
 
-
-Once created, please run the HTTP server by executing the command as follows:
-
+Once created, please run the HTTP server by executing the command as
+follows:
 ```
 git clone https://github.com/GDD-Nantes/fedup
 cd fedup
