@@ -51,7 +51,7 @@ endpoints, and 200 endpoints) using Apache Jena.
 
 Once created, please run the HTTP server by executing the command as
 follows:
-```
+```sh
 git clone https://github.com/GDD-Nantes/fedup
 cd fedup
 
