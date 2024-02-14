@@ -6,9 +6,9 @@ Website where end users can browse a set of products and offers made
 available by a set of independent vendors.
 
 <p align="center">
-  <img alt="products" src="./screen_products.png" width="45%">
+  <img alt="products" src="./img/screen_products.png" width="45%">
   &nbsp; &nbsp; &nbsp; &nbsp;
-  <img alt="graph" src="./screen_reco_graphs.png" width="45%">
+  <img alt="graph" src="./img/screen_reco_graphs.png" width="45%">
 </p>
 
 
