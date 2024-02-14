@@ -5,7 +5,14 @@ configurable federations of SPARQL endpoints. It is an e-commerce
 Website where end users can browse a set of products and offers made
 available by a set of independent vendors.
 
-It comprises 3 components: (__i__) a Web view accessible through modern
+<p align="center">
+  <img alt="products" src="./screen_products.png" width="45%">
+  &nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="graph" src="./screen_reco_graphs.png" width="45%">
+</p>
+
+
+Fediscount comprises 3 components: (__i__) a Web view accessible through modern
 Web browsers, (__ii__) a federation engine able to process queries for
 large scale federations in reasonable time, and (__iii__) a federation
 of SPARQL endpoints.
