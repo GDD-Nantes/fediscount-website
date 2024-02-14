@@ -8,7 +8,7 @@ available by a set of independent vendors.
 <p align="center">
   <img alt="products" src="./img/screen_products.png" width="45%">
   &nbsp; &nbsp; &nbsp; &nbsp;
-  <img alt="graph" src="./img/screen_reco_graphs.png" width="45%">
+  <img alt="graph" src="./img/screen_reco_graph.png" width="45%">
 </p>
 
 
