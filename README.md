@@ -12,7 +12,7 @@ available by a set of independent vendors.
 </p>
 
 <p align="center">
-  <img alt="products" src="./img/demo8.gif" width="45%">
+  <img alt="products" src="./img/demo8.gif" width="50%">
 </p>
 
 
