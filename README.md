@@ -11,6 +11,10 @@ available by a set of independent vendors.
   <img alt="graph" src="./img/screen_reco_graph.png" width="45%">
 </p>
 
+<p align="center">
+  <img alt="products" src="./img/demo8.gif" width="45%">
+</p>
+
 
 Fediscount comprises 3 components: (__i__) a Web view accessible through modern
 Web browsers, (__ii__) a federation engine able to process queries for
