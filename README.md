@@ -78,7 +78,7 @@ port `5555`.
 
 ## References
 
-[1] Minh-Hoang Dang, Julien Aimonier-Davat, Pascal Molli, Hala
+[1] Minh-Hoang Dang, Julien Aimonier-Davat, Pascal Molli, Olaf Hartig, Hala
 Skaf-Molli, and Yotlan Le Crom. _FedShop: A Benchmark for Testing the
 Scalability of SPARQL Federation Engines._ In The 22th International Semantic
 Web Conference (ISWC), Athens, Greece, November, 2023.
