@@ -81,14 +81,17 @@ port `5555`.
 > You can download the `.db` database file on the [Zenodo platform](https://zenodo.org/records/11562272).
 
 
-## References
+##  References
 
-[1] Minh-Hoang Dang, Julien Aimonier-Davat, Pascal Molli, Hala
-Skaf-Molli, and Yotlan Le Crom. _FedShop: A Benchmark for Testing the
-Scalability of SPARQL Federation Engines._ In The 22th International Semantic
+[1] Minh-Hoang Dang, Julien Aimonier-Davat, Pascal Molli, Olaf Hartig, Hala
+Skaf-Molli, and Yotlan Le Crom. _[FedShop: A Benchmark for Testing the
+Scalability of SPARQL Federation Engines.](https://hal.science/hal-04180506/document)_ In The 22th International Semantic
 Web Conference (ISWC), Athens, Greece, November, 2023.
 
 [2] Julien Aimonier-Davat, Minh-Hoang Dang, Pascal Molli, Brice
-Nédelec, and Hala Skaf-Molli. _FedUP: Querying Large-Scale Federations
-of SPARQL Endpoints._ In The Web Conference 2024
+Nédelec, and Hala Skaf-Molli. _[FedUP: Querying Large-Scale Federations
+of SPARQL Endpoints.](https://hal.science/hal-04538238/document)_ In The Web Conference 2024
 (WWW’2024). Singapore, 2024.
+
+[3] Julien Aimonier-Davat, Minh-Hoang Dang, Pascal Molli, Brice Nédelec, 
+Hala Skaf-Molli. _[Fediscount: Shopping Online at a Federated Store Using FedUP as SPARQL Federation Engine.](https://hal.science/hal-04538264/document)_ The ACM Web Conference (WWW ’24), May 2024, Singapore. 
