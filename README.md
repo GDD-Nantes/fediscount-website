@@ -53,6 +53,9 @@ To deploy FedUP for Fediscount, one must first create 3 tiny quotient
 summaries of the targeted FedShop federations (20 endpoints, 100
 endpoints, and 200 endpoints) using Apache Jena.
 
+> [!NOTE]
+> You can download the 3 summaries on the [Zenodo platform](https://zenodo.org/records/11562272).
+
 Once created, please run the HTTP server by executing the command as
 follows:
 ```sh
@@ -74,6 +77,8 @@ and ingested [FedShop](https://github.com/GDD-Nantes/FedShop)'s federation
 of 200 endpoints with a [`.ini` config file](fedshop_200.ini) exposing the API on
 port `5555`.
 
+> [!NOTE]
+> You can download the `.db` database file on the [Zenodo platform](https://zenodo.org/records/11562272).
 
 
 ## References
