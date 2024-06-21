@@ -11,6 +11,9 @@ WORKDIR virtuoso-opensource
 
 RUN ./autogen.sh
 
+RUN CFLAGS="-O2 -m64" \
+    export CFLAGS
+
 RUN ./configure --prefix=/VIRTUOSO/
 
 RUN make
@@ -21,8 +24,7 @@ RUN mkdir -p /VIRTUOSO/database
 workdir /VIRTUOSO/database
 
 RUN wget https://zenodo.org/records/11562272/files/fedshop_200.db && \
-    wget https://zenodo.org/records/11562272/files/fedshop_200.ini
-
+    wget https://raw.githubusercontent.com/GDD-Nantes/fediscount-website/main/fedshop_200.ini
 
 ########################################################
 
